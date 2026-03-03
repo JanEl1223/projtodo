@@ -1,4 +1,3 @@
-<?php require_once 'connectdb.php'; ?>
 <!DOCTYPE html>
 <html>
    <head>
@@ -15,21 +14,7 @@
                <th>Status</th>
                <th>Actions</th>
             </tr>
-
-            <?php
-               $tasks=mysqli_query($connection,"SELECT * FROM tasks ORDER BY id DESC");
-               while($row=mysqli_fetch_assoc($tasks)){
-            ?>
-            <tr class="<?php echo ($row['status']=='Done') ? 'done-row' : ''; ?>">
-               <td class="task-title"><?php echo htmlspecialchars($row['title']); ?></td>
-               <td><?php echo htmlspecialchars($row['status']); ?></td>
-               <td>
-                  <a class="view" onclick="openModal(<?php echo $row['id'];?>,'view')">View</a> |
-                  <a class="delete" onclick="showDeleteConfirm(<?php echo $row['id'];?>)">Delete</a>
-               </td>
-            </tr>
-
-            <?php } ?>
+            <tbody id="taskList"></tbody>
          </table>
          <br>
          <button onclick="openAddTask()">+ Add Task</button>
@@ -49,7 +34,7 @@
       </div>
 
       <div id="savePopup">Task saved successfully!</div>
-      
+
       <script src="script.js" defer></script>
    </body>
 </html>
